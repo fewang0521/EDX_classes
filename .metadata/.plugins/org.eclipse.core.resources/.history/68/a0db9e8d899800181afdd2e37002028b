@@ -32,6 +32,7 @@ public class Least_Common_Multiple {
 		Scanner scanner = new Scanner(System.in);
 		int a = scanner.nextInt();
 		int b = scanner.nextInt();
+		System.out.println(GCD(a,b));
 		System.out.println(lcm_naive(a, b));
 	}
 }

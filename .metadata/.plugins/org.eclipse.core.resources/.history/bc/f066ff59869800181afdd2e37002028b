@@ -4,10 +4,12 @@ public class Least_Common_Multiple {
 	private static long lcm_naive(int a, int b) {
 		
 		long GCD_a_b=GCD(a,b);
+		long quot_a=a/GCD_a_b;
+		long quot_b=b/GCD_a_b;
 		
-		return (long) a * b/GCD_a_b;
+		return (long) quot_a * quot_b*GCD_a_b;
 	}
-	public static long GCD(long a, long b){
+	public static long GCD(int a, int b){
 		long big;
 		long small;
 		if (a>b){
@@ -22,16 +24,14 @@ public class Least_Common_Multiple {
 		if (remain==0){
 			return small;
 		}
-		else if (remain==1){
-			return 1;
-		}
-		return GCD(small,remain);
+		return GCD(b,remain);
 	}
 
 	public static void main(String args[]) {
 		Scanner scanner = new Scanner(System.in);
 		int a = scanner.nextInt();
 		int b = scanner.nextInt();
+
 		System.out.println(lcm_naive(a, b));
 	}
 }
