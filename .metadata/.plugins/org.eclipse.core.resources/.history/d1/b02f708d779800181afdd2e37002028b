@@ -4,7 +4,7 @@ public class Get_numb_of_changes {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		int[] input_coins={1,2,3};
-		int input_money=5;
+		int input_money=100;
 		System.out.println(get_change(input_money,input_coins));
 		
 		
@@ -12,15 +12,10 @@ public class Get_numb_of_changes {
 	
 	public static int get_change(int money, int[] coins){
 		if (coins.length==1){
-			if (money%coins[0]==0){
 			return 1;
-			}
-			else {
-				return 0;
-			}
 		}
-		int[] new_coins=new int[coins.length-1];
-		for (int i=1;i<coins.length;i++){
+		int[] new_coins=null;
+		for (int i=1;i<coins.length+1;i++){
 			new_coins[i-1]=coins[i];
 		}
 		int total_result=0;
