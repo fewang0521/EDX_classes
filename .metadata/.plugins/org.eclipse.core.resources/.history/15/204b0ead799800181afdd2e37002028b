@@ -3,7 +3,7 @@ public class Get_numb_of_changes {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int[] input_coins={1,2,5};
+		int[] input_coins={1,2,3};
 		int input_money=5;
 		System.out.println(get_change(input_money,input_coins));
 		
