@@ -1,0 +1,29 @@
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+
+public class Max_revenue_ad {
+
+	public static void main(String[] args) throws FileNotFoundException {
+		// TODO Auto-generated method stub
+		
+		Scanner input = new Scanner(new FileInputStream("C:/Users/fewan/OneDrive/¹®¼­/GitHub/EDX_classes"));
+		int num_ad=0;
+		ArrayList<Integer> profit_per_click =new ArrayList();
+		ArrayList<Integer> Ave_click_per_day =new ArrayList();
+		
+		num_ad=input.nextInt();
+		while (input.hasNextLine()){
+			profit_per_click.add(input.nextInt());
+		}
+		while (input.hasNext()){
+			Ave_click_per_day.add(input.nextInt());
+			
+		}
+		
+
+	}
+
+}
