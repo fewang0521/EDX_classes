@@ -1,0 +1,43 @@
+
+public class Majority_Element {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		int[] test_input={1,1,2,3,1,1,1,1,5};
+		int key=1;
+		int result=0;
+		result=divide_conquer_Majority(key,test_input,0,test_input.length-1);
+		System.out.println(result);
+	}
+	static int divide_conquer_Majority(int key, int[] input, int start_index, int end_index){
+		//recursive_limit_condition
+		if (start_index==end_index){
+			if (input[start_index]==key){
+				return 1;
+			}
+			else{
+				return 0;
+			}
+		}
+		if (end_index-start_index==1){
+			if (input[start_index]==key&&input[start_index]==key){
+				return 2;
+			}
+			else if(input[start_index]==key||input[start_index]==key){
+				return 1;
+			}
+			else{
+				return 0;
+			}
+			
+		}
+		
+		int start_point=start_index;
+		int end_point=end_index;
+		int middle_point=Math.round((start_point+end_point)/2);
+		return divide_conquer_Majority(key, input, start_point, middle_point)+divide_conquer_Majority(key, input, middle_point+1, end_point);
+		
+	}
+	
+
+}

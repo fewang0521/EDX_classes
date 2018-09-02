@@ -1,0 +1,24 @@
+import java.util.ArrayList;
+
+
+public class Closest_pair {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+	ArrayList<int []> test= new ArrayList<int []>();
+	
+	test.add(new int[]{1,2});
+	System.out.println(test.get(0)[1]);
+
+	}
+	
+
+}
+
+
+class pair_class_left{
+	float min_dist=0;
+	ArrayList<int []> arry=new ArrayList<int[]>();
+	
+}

@@ -1,0 +1,55 @@
+import java.util.ArrayList;
+
+
+public class Closest_pair {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+	ArrayList<int []> test= new ArrayList<int []>();
+	
+	test.add(new int[]{1,2});
+	System.out.println(test.get(0)[1]);
+
+	}
+	static pair_class get_min_dist(pair_class left, pair_class right){
+		float min_dist=0;
+		
+		
+		if (left.min_dist>right.min_dist){
+			min_dist=right.min_dist;
+		}
+		else{
+			min_dist=left.min_dist;
+		}
+		
+		int [] reference_point=new int[2];
+		reference_point=left.arry.get(left.arry.size()-1);
+		
+		ArrayList<int[]> temp_arry=new ArrayList<int[]>();
+		for (int i=0;i<left.arry.size();i++){
+			if (left.arry.get(i)[0]+min_dist<=reference_point[0]){
+				temp_arry.add(left.arry.get(i));
+			}
+		}
+		for (int j=1;j<right.arry.size();j++){
+			if (right.arry.get(j)[0]+min_dist<=reference_point[0]){
+				temp_arry.add(left.arry.get(j));
+			}
+		}
+	}
+	
+
+}
+
+
+class pair_class{
+	float min_dist=0;
+	ArrayList<int []> arry=new ArrayList<int[]>();
+	
+	public pair_class(float min_dist_input, ArrayList<int []> arry_input){
+		this.min_dist=min_dist_input;
+		this.arry=arry_input;
+	}
+	
+}

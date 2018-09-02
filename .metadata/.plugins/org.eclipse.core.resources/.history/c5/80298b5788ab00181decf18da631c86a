@@ -1,0 +1,149 @@
+import java.util.ArrayList;
+
+
+public class Closest_pair {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		pair_class test_input = new pair_class(0, null);
+
+		test_input.arry.add(new int[]{0,0});
+		test_input.arry.add(new int[]{1,1});
+		test_input.arry.add(new int[]{2,2});
+		test_input.arry.add(new int[]{3,3});
+		test_input.arry.add(new int[]{3,4});
+
+		System.out.println(seperate_func(test_input).left.min_dist);
+		
+
+
+	}
+
+	static seperate_pair seperate_func(pair_class input){
+		int size=input.arry.size();
+
+		pair_class left=new pair_class(0, null);
+		pair_class right=new pair_class(0, null);
+
+		if (size==3){
+			left.arry.add(input.arry.get(0));
+			left.arry.add(input.arry.get(1));
+			left.min_dist=(float) (Math.pow(left.arry.get(0)[0]-left.arry.get(1)[0],2)+Math.pow(left.arry.get(0)[1]-left.arry.get(1)[1],2));
+			left.min_dist=(float) Math.sqrt(left.min_dist);
+			
+			right.arry.add(input.arry.get(1));
+			right.arry.add(input.arry.get(2));
+			right.min_dist=(float) (Math.pow(right.arry.get(0)[0]-right.arry.get(1)[0],2)+Math.pow(right.arry.get(0)[1]-right.arry.get(1)[1],2));
+			right.min_dist=(float) Math.sqrt(right.min_dist);
+			
+			return new seperate_pair(left,right);
+		}
+		else if(size==2){
+			left.arry.add(input.arry.get(0));
+			left.arry.add(input.arry.get(1));
+			left.min_dist=(float) (Math.pow(left.arry.get(0)[0]-left.arry.get(1)[0],2)+Math.pow(left.arry.get(0)[1]-left.arry.get(1)[1],2));
+			left.min_dist=(float) Math.sqrt(left.min_dist);
+			
+			return new seperate_pair(left,right);
+		}
+
+		for (int i=0;i<size;i++){
+			if (i<=Math.round((float) size/2)-1){
+				left.arry.add(input.arry.get(i));
+			}
+			if (Math.round((float) size/2)-1<=i){
+				right.arry.add(input.arry.get(i));
+			}
+		}
+
+		seperate_pair left_sep=seperate_func(left);
+		seperate_pair right_sep=seperate_func(right);
+
+		pair_class merge_left=get_min_dist(left_sep.left,left_sep.right);
+		pair_class merge_right=get_min_dist(right_sep.left,left_sep.right);
+
+		return new seperate_pair(merge_left, merge_right);
+	}
+	static pair_class get_min_dist(pair_class left, pair_class right){
+		float min_dist=0;
+		float min_dist_drl=0;
+		
+		if (right.arry==null){
+			min_dist=(float) (Math.pow(left.arry.get(0)[0]-left.arry.get(1)[0],2)+Math.pow(left.arry.get(0)[1]-left.arry.get(1)[1],2));
+			min_dist=(float) Math.sqrt(min_dist);
+			return new pair_class(min_dist,left.arry);
+		}
+
+		if (left.min_dist>right.min_dist){
+			min_dist=right.min_dist;
+		}
+		else{
+			min_dist=left.min_dist;
+		}
+
+		int [] reference_point=new int[2];
+		reference_point=left.arry.get(left.arry.size()-1);
+
+		ArrayList<int[]> temp_left_arry=new ArrayList<int[]>();
+		ArrayList<int[]> temp_right_arry=new ArrayList<int[]>();
+		for (int i=0;i<left.arry.size()-1;i++){
+			if (left.arry.get(i)[0]+min_dist<=reference_point[0]){
+				temp_left_arry.add(left.arry.get(i));
+			}
+		}
+		for (int j=1;j<right.arry.size();j++){
+			if (right.arry.get(j)[0]>=reference_point[0]+min_dist){
+				temp_right_arry.add(left.arry.get(j));
+			}
+		}
+		min_dist_drl=min_get_dist_points_two_arry(temp_left_arry,temp_right_arry);
+		if (min_dist_drl<min_dist){
+			min_dist=min_dist_drl;
+		}
+		for (int j=1;j<right.arry.size();j++){
+			left.arry.add(right.arry.get(j));
+		}
+
+		return new pair_class(min_dist,left.arry);
+
+	}
+	static float min_get_dist_points_two_arry(ArrayList<int []> arry_1, ArrayList<int []> arry_2){
+		int size_arr_1=arry_1.size();
+		int size_arr_2=arry_2.size();
+		float min=Float.MAX_VALUE;
+		float temp_dist=0;
+
+		for (int i=0;i<size_arr_1;i++){
+			for (int j=0;j<size_arr_2;j++){
+				temp_dist=(float) (Math.pow((arry_1.get(i)[0]-arry_2.get(j)[0]), 2)+Math.pow((arry_1.get(i)[1]-arry_2.get(j)[1]),2));
+				if (temp_dist<min){
+					min=temp_dist;
+				}
+			}
+		}
+		return (float) Math.sqrt(min);
+	}
+
+
+}
+
+
+class pair_class{
+	float min_dist=0;
+	ArrayList<int []> arry=new ArrayList<int[]>();
+
+	public pair_class(float min_dist_input, ArrayList<int []> arry_input){
+		this.min_dist=min_dist_input;
+		this.arry=arry_input;
+	}
+
+}
+class seperate_pair {
+	pair_class left =new pair_class(0, null);
+	pair_class right = new pair_class(0,null);
+
+	public seperate_pair(pair_class input_left, pair_class input_right){
+		this.left=input_left;
+		this.right=input_right;
+	}
+}

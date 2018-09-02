@@ -1,0 +1,56 @@
+import java.util.ArrayList;
+
+
+public class Primitive_cal {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+	
+		System.out.println(DP_min_operation(1));
+
+	}
+	static int DP_min_operation(int input_integer){
+	//multiply by 2 and 3, and add 1 to x.
+		ArrayList<Integer> DP_min_cal_arry=new ArrayList();
+		int index_n_cal_done=2;
+		DP_min_cal_arry.add(0);
+		DP_min_cal_arry.add(0);
+		int [] val_DP_min=new int[3];
+		
+		if(input_integer<2){
+			return DP_min_cal_arry.get(1);
+			
+		}
+		
+		while (index_n_cal_done<=input_integer){
+			val_DP_min[0]=Integer.MAX_VALUE;
+			val_DP_min[1]=Integer.MAX_VALUE;
+			val_DP_min[2]=Integer.MAX_VALUE;
+			
+			if (index_n_cal_done-1>=0){
+				val_DP_min[0]=DP_min_cal_arry.get(index_n_cal_done-1);
+				val_DP_min[0]+=1;
+			}
+			if(index_n_cal_done/2>=1){
+				val_DP_min[1]=DP_min_cal_arry.get(index_n_cal_done/2);
+				val_DP_min[1]+=1;
+			}
+			if(index_n_cal_done/3>=1){
+				val_DP_min[2]=DP_min_cal_arry.get(index_n_cal_done/3);
+				val_DP_min[2]+=1;
+			}
+			int result_min_val=Integer.MAX_VALUE;
+			for (int i=0;i<3;i++){
+				if (result_min_val>val_DP_min[i]){
+					result_min_val=val_DP_min[i];
+				}
+								
+			}
+			DP_min_cal_arry.add(result_min_val);			
+			index_n_cal_done+=1;
+		}
+		
+		return DP_min_cal_arry.get(input_integer);
+	}
+
+}

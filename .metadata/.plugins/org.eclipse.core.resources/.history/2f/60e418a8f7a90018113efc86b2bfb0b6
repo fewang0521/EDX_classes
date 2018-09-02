@@ -1,0 +1,141 @@
+import java.util.ArrayList;
+
+
+public class Majority_Element {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		ArrayList<Integer> input=new ArrayList<Integer>();
+		Integer left_int=1;
+		input.add(1);
+		input.add(1);
+		input.add(2);
+		input.add(3);
+		input.add(3);
+		input.add(3);
+		input.add(3);
+		
+		Majority input_majority=new Majority(0, input);
+		System.out.println(sep(input_majority).left.array);
+	}
+	static Seperate_major sep(Majority input){
+		int size=input.array.size();
+		Majority left=new Majority(null,new ArrayList<Integer>());
+		Majority right=new Majority(null,new ArrayList<Integer>());
+		for (int i=0;i<Math.round(size);i++){
+			left.array.add(input.array.get(i));
+		}
+		for (int i=Math.round(size);i<size;i++){
+			right.array.add(input.array.get(i));
+		}
+		
+		if (size<8){
+			return new Seperate_major(check_majority_under_3(left),check_majority_under_3(right));
+		}
+		else{
+			
+			Seperate_major sep_left=sep(left);
+			Seperate_major sep_right=sep(right);
+			Majority left_new=get_Majority(sep_left.left,sep_left.right);
+			Majority right_new=get_Majority(sep_right.left,sep_right.right);
+			return new Seperate_major(left_new, right_new);
+		}
+	}
+	
+	static Majority check_majority_under_3(Majority input){
+		Integer check=null;
+		Integer index=null;
+		Integer result_max=Integer.MIN_VALUE;
+		Integer temp_max=Integer.MIN_VALUE;
+		for (int i=0;i<input.array.size();i++){
+			check=input.array.get(i);
+			temp_max=0;
+			for (int j=0;j<input.array.size();j++){
+				if (check==input.array.get(j)){
+					temp_max=temp_max+1;
+				}
+			}
+			if (result_max<temp_max){
+				result_max=temp_max;
+				index=input.array.get(i);
+			}
+		}
+		if (result_max>=input.array.size()/2){
+			return new Majority(index,input.array);
+		}
+		return new Majority(null,input.array);
+	}
+	
+	static Majority get_Majority(Majority left, Majority right){
+		//recursive_limit_condition
+		Integer left_maj_entity=left.Majority_entity;
+		Integer right_maj_entity=right.Majority_entity;
+		ArrayList<Integer> left_arry=left.array;
+		ArrayList<Integer> right_arry=right.array;
+		
+		Integer result_maj_entity=null;
+		ArrayList<Integer> result_arry=new ArrayList<Integer>();
+		for (int i=0;i<left.array.size();i++){
+			result_arry.add(left_arry.get(i));
+		}
+		for (int i=0;i<right.array.size();i++){
+			result_arry.add(right_arry.get(i));
+		}
+		
+		if (left_maj_entity==null && right_maj_entity==null){
+			result_maj_entity=null;
+			return new Majority(result_maj_entity,result_arry);
+		}
+		else if(left_maj_entity==right_maj_entity){
+			result_maj_entity=left_maj_entity;
+			return new Majority(result_maj_entity,result_arry);
+		}
+		else{
+			if (result_arry.size()/2<=count_n(left_maj_entity,result_arry)){
+				result_maj_entity=left_maj_entity;
+				return new Majority(result_maj_entity,result_arry);
+			}
+			if (result_arry.size()/2<=count_n(right_maj_entity,result_arry)){
+				result_maj_entity=right_maj_entity;
+				return new Majority(result_maj_entity,result_arry);
+			}
+			
+			return new Majority(result_maj_entity,result_arry);
+		}
+		
+	}
+	static Integer count_n(Integer input, ArrayList<Integer> input_arr){
+		Integer count=0;
+		for (int i=0;i<input_arr.size();i++){
+			if (input==input_arr.get(i)){
+				count=count+1;
+			}
+		}
+		
+		return count;
+	}
+	
+	
+	
+
+}
+class Majority{
+	Integer Majority_entity=0;
+	ArrayList<Integer> array=new ArrayList();
+	
+	public Majority(Integer input_entity, ArrayList<Integer> input_arry){
+		this.Majority_entity=input_entity;
+		this.array=(ArrayList<Integer>) input_arry.clone();
+	}
+	
+}
+class Seperate_major{
+	Majority left=new Majority(null, null);
+	Majority right=new Majority(null, null);
+	public Seperate_major(Majority left_m, Majority right_m){
+		this.left=left_m;
+		this.right=right_m;
+	}
+}
+

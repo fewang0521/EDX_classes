@@ -1,0 +1,42 @@
+import java.util.ArrayList;
+
+
+public class Majority_Element {
+
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+	}
+	static Majority get_Majority(Majority left, Majority right){
+		//recursive_limit_condition
+		int left_maj_entity=left.Majority_entity;
+		int right_maj_entity=right.Majority_entity;
+		ArrayList<Integer> left_arry=null;
+		ArrayList<Integer> right_arry=null;
+		
+		int result_maj_entity=0;
+		ArrayList<Integer> result_arry=null;
+		
+		if (left_maj_entity==null && right_maj_entity==null){
+			
+		}
+		
+		
+		return null;
+	}
+	
+	
+	
+
+}
+public class Majority{
+	Integer Majority_entity=0;
+	ArrayList<Integer> array=new ArrayList();
+	
+	public Majority(Integer input_entity, ArrayList<Integer> input_arry){
+		this.Majority_entity=input_entity;
+		this.array=(ArrayList<Integer>) input_arry.clone();
+	}
+	
+}
+
